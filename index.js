@@ -6,6 +6,7 @@ import "dotenv/config";
 
 import userRoute from './routes/users.js';
 import authRoute from './routes/auth.js';
+import postRoute from './routes/post.js';
 
 const app = express();
 mongoose
@@ -21,6 +22,7 @@ app.use(morgan("common"));
 
 app.use("/api/users",userRoute);
 app.use("/api/auth",authRoute);
+app.use("/api/post",postRoute);
 
 //test
 // app.get("/",(req,res)=>{
