@@ -2,13 +2,14 @@ import HomeRight from "./HomeRightbar/HomeRight";
 import ProfileRihtbar from "./ProfileRightbar/ProfileRihtbar";
 import "./rightbar.css";
 
-const Rightbar = ({ profile }) => {
+const Rightbar = ({ user }) => {
+
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
         {/* <HomeRight/> */}
         {/* <ProfileRihtbar/> */}
-        {profile ? <ProfileRihtbar /> : <HomeRight />}
+        {user ? <ProfileRihtbar user={user} /> : <HomeRight />}
       </div>
     </div>
   );

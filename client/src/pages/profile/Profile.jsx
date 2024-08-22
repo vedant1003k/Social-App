@@ -1,9 +1,29 @@
 import "./profile.css";
+import { useState, useEffect } from "react";
 import Rightbar from "../../components/rightbar/Rightbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Topbar from "../../components/Topbar/Topbar";
 import Feed from "../../components/feed/Feed";
+import axios from "axios";
+import { useParams } from "react-router";
+
 const Profile = () => {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [user, setUser] = useState({});
+
+  const username = useParams().username;
+  // console.log(params.username);
+  
+
+  useEffect(() => {
+    // console.log("feed render");
+    const fetchUser = async () => {
+      const res = await axios.get(`/users/?username=${username}`);
+      // console.log(res);
+      setUser(res.data);
+    };
+    fetchUser();
+  }, [username]);
   return (
     <>
       <Topbar />
@@ -13,24 +33,24 @@ const Profile = () => {
           <div className="profileRightTop">
             <div className="profileCover">
               <img
-                src="assets/post/3.jpeg"
+                src={user.coverPicture || PF+"person/noCover.png"}
                 alt=""
                 className="profileCoverImg"
               />
               <img
-                src="assets/person/12.jpg"
+                src={user.profilePicture || PF+"person/noAvatar.png"}
                 alt=""
                 className="profileUserImg"
               />
             </div>
             <div className="profileInfo">
-                <h4 className="profileInfoName">Vedant Kashyap</h4>
-                <span className="profileInfoDesc">Hello My Friends</span>
+              <h4 className="profileInfoName">{user.username}</h4>
+              <span className="profileInfoDesc">{user.desc}</span>
             </div>
           </div>
           <div className="profileRightBottom">
-            <Feed />
-            <Rightbar profile/>
+            <Feed username={username} />
+            <Rightbar user={user} />
           </div>
         </div>
       </div>

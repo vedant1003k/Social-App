@@ -71,10 +71,10 @@ router.get("/:id", async (req, res) => {
   }
 });
 // get timeline posts
-router.get("/timeline/all", async (req, res) => {
+router.get("/timeline/:userId", async (req, res) => {
   try {
     // console.log("Received userId:", req.body.userId); Log the userId received
-    const currentUser = await User.findById(req.body.userId);
+    const currentUser = await User.findById(req.params.userId);
 
     if (!currentUser) {
       return res.status(404).json({ message: "User not found" });
@@ -86,11 +86,34 @@ router.get("/timeline/all", async (req, res) => {
         return await Post.find({ userId: friendId });
       })
     );
-    res.json(userPosts.concat(...friendPosts));
+    res.status(200).json(userPosts.concat(...friendPosts));
   } catch (e) {
     console.error("Error fetching timeline:", e); // Log the error for debugging
     res.status(500).json({ error: e.message });
   }
 });
+
+//get user's all post
+router.get("/profile/:username", async (req, res) => {
+  try {
+    // Await the result of finding the user
+    const user = await User.findOne({ username: req.params.username });
+
+    // Check if the user was found
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Fetch posts by userId
+    const posts = await Post.find({ userId: user._id });
+
+    // Send the posts in the response
+    res.status(200).json(posts);
+  } catch (e) {
+    console.error("Error fetching timeline:", e); // Log the error for debugging
+    res.status(500).json({ error: e.message });
+  }
+});
+
 
 export default router;

@@ -14,9 +14,8 @@ router.post("/register", async (req, res) => {
 
     //generate user
     const newUser = new User({
-      username: req.body.username,
-      email: req.body.email,
-      password: hashedPassword,
+      ...req.body, // Spread the request body to capture all fields dynamically
+      password: hashedPassword, // Override the password field with the hashed password
     });
 
     const user = await newUser.save();
