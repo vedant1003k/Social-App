@@ -54,6 +54,14 @@
     outline: none;
 }
 
+.loading svg {
+    color: white;
+}
+
+.loginButton:disabled {
+    cursor: not-allowed;
+}
+
 .loginButton {
     height: 50px;
     border-radius: 10px;
@@ -63,6 +71,10 @@
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
+}
+
+.loginButton:focus {
+    outline: none;
 }
 
 .loginForgot {
@@ -81,4 +93,8 @@
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
+}
+
+.loginRegister:disabled {
+    cursor: not-allowed;
 }

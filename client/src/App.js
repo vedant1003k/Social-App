@@ -2,18 +2,51 @@ import Home from "./pages/home/Home";
 import Login from "./pages/Login/Login";
 import Profile from "./pages/profile/Profile";
 import Register from "./pages/Register/Register";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate, // Use Navigate instead of Redirect
+} from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import { useContext } from "react";
+import { AuthContex } from "./context/AuthContext";
 
 function App() {
+  const { user } = useContext(AuthContex);
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} exact />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile/:username" element={<Profile />} />
-      </Routes>
-    </Router>
+    <>
+      <div>
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            success: {
+              theme: {
+                primary: "#4aed88",
+              },
+            },
+          }}
+        />
+      </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={user ? <Home /> : <Register />} />
+          <Route
+            path="/login"
+            element={user ? <Navigate to="/" replace /> : <Login />}
+          />
+          <Route
+            path="/register"
+            element={user ? <Navigate to="/" replace /> : <Register />}
+          />
+          <Route
+            path="/profile/:username"
+            element={user ? <Profile /> : <Navigate to="/login" replace />}
+          />
+        </Routes>
+      </Router>
+    </>
   );
 }
 

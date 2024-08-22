@@ -1,6 +1,47 @@
+import { useRef } from "react";
 import "./register.css";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const username = useRef();
+  const email = useRef();
+  const password = useRef();
+  const passwordAgain = useRef();
+  const navigate = useNavigate();
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    if (
+      !email.current.value ||
+      !password.current.value ||
+      !username.current.value ||
+      !passwordAgain.current.value
+    ) {
+      toast.error("Every Feild is required");
+      return;
+    } else if (password.current.value !== passwordAgain.current.value) {
+      toast.error("Password's don't match !!");
+      return;
+    }
+
+    const user = {
+      username: username.current.value,
+      email: email.current.value,
+      password: password.current.value,
+    };
+
+    try {
+      await axios.post("/auth/register", user);
+      navigate("/login")
+    } catch (e) {
+      console.log(e);
+    }
+
+    // console.log(email.current.value);
+  };
+
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -11,15 +52,38 @@ const Register = () => {
           </span>
         </div>
         <div className="loginRight">
-          <div className="loginBox">
-            <input type="text" className="loginInput" placeholder="Username" />
-            <input type="email" className="loginInput" placeholder="Email" />
-            <input placeholder="Password" className="loginInput" />
-            <input placeholder="Confirm Password" className="loginInput" />
-            <button className="loginButton">Sign Up</button>
+          <form className="loginBox" onSubmit={handleClick}>
+            <input
+              type="text"
+              className="loginInput"
+              placeholder="Username"
+              ref={username}
+            />
+            <input
+              type="email"
+              className="loginInput"
+              placeholder="Email"
+              ref={email}
+            />
+            <input
+              type="password"
+              minLength={6}
+              placeholder="Password"
+              className="loginInput"
+              ref={password}
+            />
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              className="loginInput"
+              ref={passwordAgain}
+            />
+            <button className="loginButton" type="submit">
+              Sign Up
+            </button>
             {/* <span className="loginForgot">Forgot Password?</span> */}
             <button className="loginRegister">Log Into Your Account</button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
