@@ -1,6 +1,6 @@
 .share {
     width: 100%;
-    height: 170px;
+    /* height: 170px; */
     border-radius: 10px;
     --webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
     box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
@@ -54,17 +54,17 @@
     cursor: pointer;
 }
 
-.shareIcon{
+.shareIcon {
     font-size: 18px;
     margin-right: 3px;
 }
 
-.shareOptionText{
+.shareOptionText {
     font-size: 14px;
     font-weight: 50-0;
 }
 
-.shareButton{
+.shareButton {
     border: none;
     padding: 7px;
     border-radius: 5px;
@@ -73,4 +73,24 @@
     margin-right: 20px;
     cursor: pointer;
     color: white;
+}
+
+.shareImgContainer {
+    padding: 0 20px 10px 20px;
+    position: relative;
+}
+
+.shareImg {
+    width: 100%;
+    object-fit: cover;
+}
+
+.shareCancelImg {
+    position: absolute;
+    top: 5px;
+    right: 25px;
+    color: white;
+    cursor: pointer;
+    opacity: 0.7;
+
 }

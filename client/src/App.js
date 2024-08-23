@@ -11,6 +11,7 @@ import {
 import { Toaster } from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContex } from "./context/AuthContext";
+import Messenger from "./pages/Messenger/Messenger";
 
 function App() {
   const { user } = useContext(AuthContex);
@@ -43,6 +44,10 @@ function App() {
           <Route
             path="/profile/:username"
             element={user ? <Profile /> : <Navigate to="/login" replace />}
+          />
+          <Route
+            path="/messenger"
+            element={!user ? <Navigate to="/" replace /> : <Messenger />}
           />
         </Routes>
       </Router>

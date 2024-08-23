@@ -1,4 +1,10 @@
-import { PermMedia, Label, Room, EmojiEmotions } from "@material-ui/icons";
+import {
+  PermMedia,
+  Label,
+  Room,
+  EmojiEmotions,
+  Cancel,
+} from "@material-ui/icons";
 import "./share.css";
 import { useContext, useRef, useState } from "react";
 import { AuthContex } from "./../../context/AuthContext";
@@ -7,6 +13,7 @@ import toast from "react-hot-toast";
 
 const Share = () => {
   const { user } = useContext(AuthContex);
+  // const [user, setUser] = useState(currentUser);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const desc = useRef();
 
@@ -44,7 +51,6 @@ const Share = () => {
       console.log(error);
       toast.error("Something went wrong !!");
     }
-    // console.log("working");
   };
 
   return (
@@ -68,6 +74,12 @@ const Share = () => {
           />
         </div>
         <hr className="shareHr" />
+        {file && (
+          <div className="shareImgContainer">
+            <img src={URL.createObjectURL(file)} className="shareImg" alt="" />
+            <Cancel className="shareCancelImg" onClick={() => setFile(null)} />
+          </div>
+        )}
         <form className="shareBottom" onSubmit={submitHandler}>
           <div className="shareOptions">
             <label htmlFor="file" className="shareOption">

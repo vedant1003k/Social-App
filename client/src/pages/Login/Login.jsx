@@ -4,12 +4,14 @@ import toast from "react-hot-toast";
 import { loginCall } from "../../apiCalls";
 import { AuthContex } from "./../../context/AuthContext";
 import { CircularProgress } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const email = useRef();
   const password = useRef();
+  const navigate = useNavigate();
 
-  const { user, isFetching, error, dispatch } = useContext(AuthContex);
+  const { isFetching, dispatch } = useContext(AuthContex);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -22,7 +24,11 @@ const Login = () => {
       { email: email.current.value, password: password.current.value },
       dispatch
     );
-    toast.success("Loged In")
+    toast.success("Loged In");
+  };
+
+  const registerHandler = () => {
+    navigate("/register");
   };
 
   // console.log(user);
@@ -60,7 +66,11 @@ const Login = () => {
               )}
             </button>
             <span className="loginForgot">Forgot Password?</span>
-            <button className="loginRegister" disabled={isFetching}>
+            <button
+              className="loginRegister"
+              disabled={isFetching}
+              onClick={registerHandler}
+            >
               {isFetching ? (
                 <CircularProgress size="20px" className="loading" />
               ) : (

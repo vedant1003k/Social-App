@@ -34,12 +34,15 @@ const Register = () => {
 
     try {
       await axios.post("/auth/register", user);
-      navigate("/login")
+      navigate("/login");
     } catch (e) {
       console.log(e);
     }
-
     // console.log(email.current.value);
+  };
+
+  const loginHandler = () => {
+    navigate("/login");
   };
 
   return (
@@ -71,8 +74,10 @@ const Register = () => {
               placeholder="Password"
               className="loginInput"
               ref={password}
+              autoComplete="off"
             />
             <input
+              autoComplete="off"
               type="password"
               placeholder="Confirm Password"
               className="loginInput"
@@ -81,8 +86,10 @@ const Register = () => {
             <button className="loginButton" type="submit">
               Sign Up
             </button>
-            {/* <span className="loginForgot">Forgot Password?</span> */}
-            <button className="loginRegister">Log Into Your Account</button>
+
+            <button onClick={loginHandler} className="loginRegister">
+              Log Into Your Account
+            </button>
           </form>
         </div>
       </div>

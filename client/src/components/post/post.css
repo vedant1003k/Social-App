@@ -71,3 +71,58 @@
     border-bottom: 1px dashed grey;
     font-size: 15px;
 }
+
+.editbox{
+    display: flex;
+    flex-direction:column ;
+}
+
+.postEditInput {
+    width: 70%;
+    margin-right: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 8px -4px rgba(0, 0, 0, 0.5);
+    outline: none;
+}
+
+.postSaveButton {
+    padding: 8px 16px;
+    background-color: #1877f2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.postSaveButton:hover {
+    background-color: #1558c0;
+}
+
+.postCancelButton {
+    padding: 8px 16px;
+    background-color: #e81c1c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.postCancelButton:hover {
+    background-color: #d32f2f;
+}
+
+.editBtns{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
