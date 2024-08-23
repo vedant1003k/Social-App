@@ -9,6 +9,8 @@ import { User } from "../models/User.js";
 // });
 
 // Create a new post
+
+
 router.post("/", async (req, res) => {
   const newPost = new Post(req.body);
   try {
