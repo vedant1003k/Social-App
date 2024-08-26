@@ -24,7 +24,6 @@ const Login = () => {
       { email: email.current.value, password: password.current.value },
       dispatch
     );
-    toast.success("Loged In");
   };
 
   const registerHandler = () => {

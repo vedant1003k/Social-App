@@ -89,7 +89,8 @@
     position: absolute;
     top: 5px;
     right: 25px;
-    color: white;
+    color: black;
+    
     cursor: pointer;
     opacity: 0.7;
 

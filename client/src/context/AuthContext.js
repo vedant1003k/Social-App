@@ -19,6 +19,13 @@ export const AuthContextProvider = ({ children }) => {
       localStorage.removeItem("user");
     }
   }, [state.user]);
+
+  const logout = () => {
+    dispatch({ type: "LOGOUT" });
+    localStorage.removeItem("user");
+  };
+
+
   return (
     <AuthContex.Provider
       value={{
@@ -26,6 +33,7 @@ export const AuthContextProvider = ({ children }) => {
         isFetching: state.isFetching,
         error: state.error,
         dispatch,
+        logout,
       }}
     >
       {children}

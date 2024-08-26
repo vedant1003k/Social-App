@@ -1,17 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./profileRightbar.css";
 import { useContext, useEffect, useState } from "react";
 import { AuthContex } from "../../../context/AuthContext";
-import { Add, Remove, MoreVert } from "@material-ui/icons";
+import { Add, Remove } from "@material-ui/icons";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
 const ProfileRihtbar = ({ user, friends }) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  const { user: currentUser, dispatch } = useContext(AuthContex);
+  const { user: currentUser, dispatch, logout } = useContext(AuthContex);
   const [followed, setFollowed] = useState(
     currentUser.following.includes(user?._id)
   );
+  const navigate = useNavigate();
 
   useEffect(() => {
     setFollowed(currentUser.following.includes(user?._id));
@@ -40,6 +41,12 @@ const ProfileRihtbar = ({ user, friends }) => {
     setFollowed(!followed);
   };
 
+  const handleLogout = () => {
+    logout();
+    toast.success("LOGOUT");
+    navigate("/login");
+  };
+
   return (
     <>
       {user.username !== currentUser.username && (
@@ -50,7 +57,19 @@ const ProfileRihtbar = ({ user, friends }) => {
       )}
       <div className="userInfo">
         <h4 className="rightbarTitle">User information</h4>
-        <MoreVert />
+        <div id="container">
+          <div id="menu-wrap">
+            <input type="checkbox" class="toggler" />
+            <div class="dots">
+              <div></div>
+            </div>
+            <div class="menu">
+              <button className="dropdownItem" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="rightbarInfo">
         <div className="rightbarInfoItem">

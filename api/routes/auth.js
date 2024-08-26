@@ -32,7 +32,7 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
-      res.status(404).send("User not found");
+      return res.status(404).send("User not found");
     }
 
     const validPassword = await bcrypt.compare(
@@ -47,6 +47,7 @@ router.post("/login", async (req, res) => {
   } catch (e) {
     res.status(500).json(e);
   }
+  
 });
 
 export default router;

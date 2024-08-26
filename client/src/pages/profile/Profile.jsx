@@ -54,6 +54,9 @@ const Profile = () => {
       setUser(res.data.user);
       dispatch({ type: "UPDATE_USER", payload: res.data.user });
       toast.success("Profile picture removed successfully!");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (err) {
       console.error("Error removing profile picture:", err);
     }
@@ -73,6 +76,9 @@ const Profile = () => {
       setUser(res.data.user);
       dispatch({ type: "UPDATE_USER", payload: res.data.user });  
       toast.success("Cover picture removed successfully!");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (err) {
       console.error("Error removing cover picture:", err);
     }
@@ -102,7 +108,7 @@ const Profile = () => {
       toast.success("Image Uploaded successfully !");
       setTimeout(() => {
         window.location.reload();
-      }, 2000);
+      }, 1000);
     } catch (err) {
       console.error("Error uploading image:", err);
     }
