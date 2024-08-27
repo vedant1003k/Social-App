@@ -28,7 +28,14 @@ const __dirname = dirname(__filename);
 app.use("/images", express.static(path.join(__dirname, "/public/images")));
 
 //middleware
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000", // Frontend origin
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Allow credentials (cookies, etc.)
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
