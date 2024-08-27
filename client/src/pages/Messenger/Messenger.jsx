@@ -11,9 +11,6 @@ import { io } from "socket.io-client";
 const Messenger = () => {
   const { user } = useContext(AuthContex);
   // console.log(user);
-  const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  });
 
   const [conversation, setConversation] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
@@ -63,6 +60,9 @@ const Messenger = () => {
   useEffect(() => {
     const getConversation = async () => {
       try {
+        const axiosInstance = axios.create({
+          baseURL: process.env.REACT_APP_API_URL,
+        });
         const res = await axiosInstance.get("/conversations/" + user._id);
         // console.log(res);
         setConversation(res.data);
@@ -71,11 +71,14 @@ const Messenger = () => {
       }
     };
     getConversation();
-  }, [user._id, axiosInstance]);
+  }, [user._id]);
 
   useEffect(() => {
     const getMessages = async () => {
       try {
+        const axiosInstance = axios.create({
+          baseURL: process.env.REACT_APP_API_URL,
+        });
         const res = await axiosInstance.get("/messages/" + currentChat?._id);
         setMessages(res.data);
       } catch (error) {
@@ -83,7 +86,7 @@ const Messenger = () => {
       }
     };
     getMessages();
-  }, [currentChat, axiosInstance]);
+  }, [currentChat]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -101,6 +104,9 @@ const Messenger = () => {
     });
 
     try {
+      const axiosInstance = axios.create({
+        baseURL: process.env.REACT_APP_API_URL,
+      });
       const res = await axiosInstance.post("/messages", message);
       setMessages([...messages, res.data]);
       setNewMessages("");
