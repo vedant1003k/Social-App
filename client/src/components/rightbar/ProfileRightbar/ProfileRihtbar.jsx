@@ -14,6 +14,9 @@ const ProfileRihtbar = ({ user, friends }) => {
   );
   const navigate = useNavigate();
 
+  const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+  });
   useEffect(() => {
     setFollowed(currentUser.following.includes(user?._id));
   }, [currentUser, user._id]);
@@ -21,14 +24,14 @@ const ProfileRihtbar = ({ user, friends }) => {
   const handleClick = async () => {
     try {
       if (followed) {
-        await axios.put("/users/" + user._id + "/unfollow", {
+        await axiosInstance.put("/users/" + user._id + "/unfollow", {
           userId: currentUser._id,
         });
         dispatch({ type: "UNFOLLOW", payload: user._id });
         // toast.success("UNFOLLOED THE USER");
         toast.success(`UNFOLLOED ${user.username}`);
       } else {
-        await axios.put("/users/" + user._id + "/follow", {
+        await axiosInstance.put("/users/" + user._id + "/follow", {
           userId: currentUser._id,
         });
         dispatch({ type: "FOLLOW", payload: user._id });

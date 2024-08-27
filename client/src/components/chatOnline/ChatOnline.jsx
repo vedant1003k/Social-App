@@ -10,7 +10,10 @@ const ChatOnline = ({ onlineUsers, currentId, setCurrentChat }) => {
   useEffect(() => {
     const getF = async () => {
       try {
-        const res = await axios.get("/users/friends/" + currentId);
+        const axiosInstance = axios.create({
+          baseURL: process.env.REACT_APP_API_URL,
+        });
+        const res = await axiosInstance.get("/users/friends/" + currentId);
         setFriends(res.data);
       } catch (error) {
         console.log(error);
@@ -26,7 +29,10 @@ const ChatOnline = ({ onlineUsers, currentId, setCurrentChat }) => {
   // console.log(friends);
   const handleClick = async (user) => {
     try {
-      const res = await axios.get(
+      const axiosInstance = axios.create({
+        baseURL: process.env.REACT_APP_API_URL,
+      });
+      const res = await axiosInstance.get(
         "/conversations/find/" + currentId + "/" + user._id
       );
       setCurrentChat(res.data);

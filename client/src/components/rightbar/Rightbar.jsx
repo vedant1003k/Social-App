@@ -9,9 +9,12 @@ const Rightbar = ({ user }) => {
 
   useEffect(() => {
     const getFriends = async () => {
+      const axiosInstance = axios.create({
+        baseURL: process.env.REACT_APP_API_URL,
+      });
       if (user?._id) {
         try {
-          const friendList = await axios.get("/users/friends/" + user._id);
+          const friendList = await axiosInstance.get("/users/friends/" + user._id);
           setFriends(friendList.data);
         } catch (error) {
           console.log(error);

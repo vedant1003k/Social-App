@@ -10,7 +10,10 @@ const Conversation = ({ conversation, currentUser }) => {
     const friends = conversation.members.find((m) => m !== currentUser._id);
     const getUser = async () => {
       try {
-        const res = await axios.get("/users?userId=" + friends);
+        const axiosInstance = axios.create({
+          baseURL: process.env.REACT_APP_API_URL,
+        });
+        const res = await axiosInstance.get("/users?userId=" + friends);
         // console.log(res);
         setUser(res.data);
       } catch (error) {

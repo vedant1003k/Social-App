@@ -13,6 +13,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ const __dirname = dirname(__filename);
 app.use("/images", express.static(path.join(__dirname, "/public/images")));
 
 //middleware
+app.use(cors());
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
@@ -73,4 +75,3 @@ app.use("/api/messages", messageRoute);
 app.listen(process.env.PORT || 8800, () => {
   console.log(`Backend sever is running on ${process.env.PORT}`);
 });
-

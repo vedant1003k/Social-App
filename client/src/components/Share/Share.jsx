@@ -16,6 +16,9 @@ const Share = () => {
   // const [user, setUser] = useState(currentUser);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const desc = useRef();
+  const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+  });
 
   const [file, setFile] = useState(null);
   const submitHandler = async (e) => {
@@ -32,7 +35,7 @@ const Share = () => {
       data.append("file", file);
       newPost.img = fileName;
       try {
-        await axios.post("/upload", data);
+        await axiosInstance.post("/upload", data);
       } catch (error) {
         console.log(error);
         toast.error("Something went wrong !!");
@@ -42,7 +45,7 @@ const Share = () => {
       return;
     }
     try {
-      await axios.post("/post", newPost);
+      await axiosInstance.post("/post", newPost);
       toast.success("Post Shared !!");
       setTimeout(() => {
         window.location.reload();

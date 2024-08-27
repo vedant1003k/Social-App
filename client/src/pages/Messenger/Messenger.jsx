@@ -11,6 +11,9 @@ import { io } from "socket.io-client";
 const Messenger = () => {
   const { user } = useContext(AuthContex);
   // console.log(user);
+  const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+  });
 
   const [conversation, setConversation] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
@@ -44,7 +47,7 @@ const Messenger = () => {
       // console.log(users);
       setOnlineUsers(
         user.following.filter((f) => users.some((u) => u.userId === f))
-        // taking all followin from current user and inside each following we look in socket users if 
+        // taking all followin from current user and inside each following we look in socket users if
         //userid of socket user matches with any friendsid it will set online user
       );
     });
@@ -60,7 +63,7 @@ const Messenger = () => {
   useEffect(() => {
     const getConversation = async () => {
       try {
-        const res = await axios.get("/conversations/" + user._id);
+        const res = await axiosInstance.get("/conversations/" + user._id);
         // console.log(res);
         setConversation(res.data);
       } catch (error) {
@@ -68,19 +71,19 @@ const Messenger = () => {
       }
     };
     getConversation();
-  }, [user._id]);
+  }, [user._id, axiosInstance]);
 
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const res = await axios.get("/messages/" + currentChat?._id);
+        const res = await axiosInstance.get("/messages/" + currentChat?._id);
         setMessages(res.data);
       } catch (error) {
         console.log(error);
       }
     };
     getMessages();
-  }, [currentChat]);
+  }, [currentChat, axiosInstance]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,7 +101,7 @@ const Messenger = () => {
     });
 
     try {
-      const res = await axios.post("/messages", message);
+      const res = await axiosInstance.post("/messages", message);
       setMessages([...messages, res.data]);
       setNewMessages("");
     } catch (error) {

@@ -8,17 +8,20 @@ import { AuthContex } from "../../context/AuthContext";
 const Feed = ({ username }) => {
   // const user = Users.filter((u) => u.id === 1);
   // console.log(user);
-
+  
   const [posts, setPost] = useState([]);
   const { user } = useContext(AuthContex);
 
   useEffect(() => {
     // console.log("feed render");
     try {
+      const axiosInstance = axios.create({
+        baseURL: process.env.REACT_APP_API_URL,
+      });
       const fetchPosts = async () => {
         const res = username
-          ? await axios.get("/post/profile/" + username)
-          : await axios.get("/post/timeline/" + user._id);
+          ? await axiosInstance.get("/post/profile/" + username)
+          : await axiosInstance.get("/post/timeline/" + user._id);
         // console.log(res);
         setPost(
           res.data.sort((p1, p2) => {

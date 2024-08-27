@@ -16,6 +16,9 @@ const Post = (props) => {
 
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   // console.log(PF);
+  const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+  });
 
   const { user: currentUser } = useContext(AuthContex);
 
@@ -24,9 +27,12 @@ const Post = (props) => {
   }, [currentUser._id, post.likes]);
 
   useEffect(() => {
+    const axiosInstance = axios.create({
+      baseURL: process.env.REACT_APP_API_URL,
+    });
     // console.log("feed render");
     const fetchUser = async () => {
-      const res = await axios.get(`/users/?userId=${post.userId}`);
+      const res = await axiosInstance.get(`/users/?userId=${post.userId}`);
       // console.log(res);
       setUser(res.data);
     };
@@ -35,7 +41,9 @@ const Post = (props) => {
 
   const likeHandler = () => {
     try {
-      axios.put("/post/" + post._id + "/like", { userId: currentUser._id });
+      axiosInstance.put("/post/" + post._id + "/like", {
+        userId: currentUser._id,
+      });
     } catch (error) {}
 
     setLike(isLiked ? (prev) => prev - 1 : (prev) => prev + 1);
@@ -48,7 +56,7 @@ const Post = (props) => {
 
   const handleSaveClick = async () => {
     try {
-      await axios.put("/post/" + post._id, {
+      await axiosInstance.put("/post/" + post._id, {
         userId: currentUser._id,
         desc: desc,
       });
@@ -89,7 +97,6 @@ const Post = (props) => {
           {isEditing ? (
             <div className="editBox">
               <textarea
-                
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
                 className="postEditInput"

@@ -10,7 +10,10 @@ const Message = ({ message, own }) => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get("/users?userId=" + message.sender);
+        const axiosInstance = axios.create({
+          baseURL: process.env.REACT_APP_API_URL,
+        });
+        const res = await axiosInstance.get("/users?userId=" + message.sender);
         setUser(res.data);
         // console.log(res.data);
       } catch (error) {

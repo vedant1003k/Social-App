@@ -19,11 +19,16 @@ const Profile = () => {
 
   const username = useParams().username;
   // console.log(params.username);
-
+  const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+  });
   useEffect(() => {
     // console.log("feed render");
     const fetchUser = async () => {
-      const res = await axios.get(`/users?username=${username}`);
+      const axiosInstance = axios.create({
+        baseURL: process.env.REACT_APP_API_URL,
+      });
+      const res = await axiosInstance.get(`/users?username=${username}`);
       // console.log(res);
       setUser(res.data);
     };
@@ -46,7 +51,7 @@ const Profile = () => {
       return;
     }
     try {
-      const res = await axios.put("/users/" + user._id, {
+      const res = await axiosInstance.put("/users/" + user._id, {
         profilePicture: "",
         userId: user._id,
         password: user.password,
@@ -68,7 +73,7 @@ const Profile = () => {
       return;
     }
     try {
-      const res = await axios.put(`/users/${user._id}`, {
+      const res = await axiosInstance.put(`/users/${user._id}`, {
         coverPicture: "",
         userId: user._id,
         password: user.password,
@@ -95,9 +100,9 @@ const Profile = () => {
     data.append("file", file);
 
     try {
-      await axios.post("/upload", data);
+      await axiosInstance.post("/upload", data);
       const updateField = isCover ? "coverPicture" : "profilePicture";
-      const res = await axios.put("/users/" + user._id, {
+      const res = await axiosInstance.put("/users/" + user._id, {
         [updateField]: fileName,
         userId: user._id,
         password: user.password,
