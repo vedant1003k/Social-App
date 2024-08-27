@@ -9,5 +9,6 @@ export const loginCall = async (userCredentials, dispatch) => {
     toast.success("Logged In");
   } catch (e) {
     dispatch({ type: "LOGIN_FAILURE", payload: e });
+    toast.error("Login failed. Please check your credentials.");
   }
 };

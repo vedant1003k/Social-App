@@ -40,14 +40,13 @@ router.post("/login", async (req, res) => {
       user.password
     );
     if (!validPassword) {
-      res.status(400).send("Wrong password");
+      return res.status(400).send("Wrong password"); // Add return here
     }
 
     res.status(200).json(user);
   } catch (e) {
     res.status(500).json(e);
   }
-  
 });
 
 export default router;

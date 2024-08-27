@@ -88,8 +88,8 @@ const Post = (props) => {
         <div className="postCenter">
           {isEditing ? (
             <div className="editBox">
-              <input
-                type="text"
+              <textarea
+                
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
                 className="postEditInput"
