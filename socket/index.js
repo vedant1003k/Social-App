@@ -1,10 +1,15 @@
 import { Server } from "socket.io";
+import dotenv from "dotenv";
+import http from "http";
 
-const io = new Server(8900, {
+dotenv.config();
+
+const io = new Server(process.env.PORT, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.CORE_ORIGIN,
   },
 });
+
 
 let users = [];
 

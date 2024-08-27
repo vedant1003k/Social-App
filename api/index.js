@@ -12,6 +12,9 @@ import messageRoute from "./routes/message.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 mongoose
@@ -70,3 +73,4 @@ app.use("/api/messages", messageRoute);
 app.listen(process.env.PORT || 8800, () => {
   console.log(`Backend sever is running on ${process.env.PORT}`);
 });
+
