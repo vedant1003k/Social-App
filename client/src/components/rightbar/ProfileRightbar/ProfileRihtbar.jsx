@@ -59,11 +59,11 @@ const ProfileRihtbar = ({ user, friends }) => {
         <h4 className="rightbarTitle">User information</h4>
         <div id="container">
           <div id="menu-wrap">
-            <input type="checkbox" class="toggler" />
-            <div class="dots">
+            <input type="checkbox" className="toggler" />
+            <div className="dots">
               <div></div>
             </div>
-            <div class="menu">
+            <div className="menu">
               <button className="dropdownItem" onClick={handleLogout}>
                 Logout
               </button>
