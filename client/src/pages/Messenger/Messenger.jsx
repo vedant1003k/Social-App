@@ -22,7 +22,7 @@ const Messenger = () => {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
+    socket.current = io("https://social-app-socket-b8p4.onrender.com");
     socket.current.on("getMessage", (data) => {
       setarrivalMessages({
         sender: data.senderId,
