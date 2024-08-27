@@ -29,7 +29,7 @@ app.use("/images", express.static(path.join(__dirname, "/public/images")));
 
 //middleware
 const corsOptions = {
-  origin: "http://localhost:3000", // Frontend origin
+  origin: process.env.FRONTEND_URL, // Frontend origin
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // Allow credentials (cookies, etc.)
 };
