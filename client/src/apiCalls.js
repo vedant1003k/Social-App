@@ -6,6 +6,7 @@ export const loginCall = async (userCredentials, dispatch) => {
     baseURL: process.env.REACT_APP_API_URL,
     withCredentials: true,
   });
+  
   dispatch({ type: "LOGIN_START" });
   try {
     const res = await axiosInstance.post("/auth/login", userCredentials);

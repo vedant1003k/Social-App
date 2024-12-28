@@ -27,7 +27,7 @@ const Topbar = () => {
       </div>
       <div className="topbarRight">
         <div className="topbarLinks">
-          <Link to="/messenger" className="topbarLink" >
+          <Link to="/messenger" className="topbarLink">
             <span>Homepage</span>
           </Link>
           <span className="topbarLink">Timeline</span>
@@ -46,7 +46,7 @@ const Topbar = () => {
             <span className="topbarIconBadge">1</span>
           </div>
         </div>
-        <Link to={`/profile/${user.username}`}>
+        <Link to={"/profile/" + user.username}>
           <img
             src={
               user.profilePicture
