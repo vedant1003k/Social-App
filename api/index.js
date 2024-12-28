@@ -13,7 +13,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import dotenv from "dotenv";
-// import cors from "cors";
+import cors from "cors";
 
 dotenv.config();
 
@@ -28,13 +28,13 @@ const __dirname = dirname(__filename);
 app.use("/images", express.static(path.join(__dirname, "/public/images")));
 
 //middleware
-// const corsOptions = {
-//   origin: process.env.FRONTEND_URL, // Frontend origin
-//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   credentials: true, // Allow credentials (cookies, etc.)
-// };
+const corsOptions = {
+  origin: process.env.FRONTEND_URL, // Frontend origin
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Allow credentials (cookies, etc.)
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(helmet());
