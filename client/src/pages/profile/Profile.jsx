@@ -56,12 +56,12 @@ const Profile = () => {
         userId: user._id,
         password: user.password,
       });
-      setUser(res.data.user);
+      setUser((prev) => ({ ...prev, profilePicture: "" }));
       dispatch({ type: "UPDATE_USER", payload: res.data.user });
       toast.success("Profile picture removed successfully!");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1000);
     } catch (err) {
       console.error("Error removing profile picture:", err);
     }
@@ -78,12 +78,12 @@ const Profile = () => {
         userId: user._id,
         password: user.password,
       });
-      setUser(res.data.user);
+      setUser((prev) => ({ ...prev, coverPicture: "" }));
       dispatch({ type: "UPDATE_USER", payload: res.data.user });  
       toast.success("Cover picture removed successfully!");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1000);
     } catch (err) {
       console.error("Error removing cover picture:", err);
     }
@@ -111,9 +111,9 @@ const Profile = () => {
       dispatch({ type: "UPDATE_USER", payload: res.data.user });  
       // console.log(res.data.user);
       toast.success("Image Uploaded successfully !");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1000);
     } catch (err) {
       console.error("Error uploading image:", err);
     }
